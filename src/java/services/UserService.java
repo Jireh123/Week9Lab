@@ -29,18 +29,26 @@ public class UserService {
         User user = new User(email, fname, lname, pass, role);
         userDB.insertUser(user);
     }
-    
+
     public void updateUser(String email, String fname, String lname, String pass,
             Role role) throws Exception {
         UserDB userDB = new UserDB();
         User user = new User(email, fname, lname, pass, role);
         userDB.updateUser(user);
     }
-    
-    public void deleteNote(String email) throws Exception {
+
+    public void deleteUser(String email) throws Exception {
         UserDB userDB = new UserDB();
         User user = new User();
         user.setEmail(email);
         userDB.deleteUser(user);
     }
+
+    public boolean isNotEmpty(String email, String firstname, String lastname, String password) {
+        if (email == null || email.equals("") || firstname == null || firstname.equals("") || lastname == null || lastname.equals("") || password == null || password.equals("")) {
+            return false;
+        }
+        return true;
+    }
+
 }
