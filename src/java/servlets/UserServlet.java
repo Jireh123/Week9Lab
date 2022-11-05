@@ -22,7 +22,6 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         UserService userService = new UserService();
         RoleService roleService = new RoleService();
         String action = request.getParameter("action");
@@ -45,7 +44,7 @@ public class UserServlet extends HttpServlet {
                 users = userService.getAllUsers();
                 request.setAttribute("users", users);
             }
-            
+
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -57,31 +56,24 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         UserService userService = new UserService();
+        RoleService roleService = new RoleService();
         String action = request.getParameter("action");
 
         String email = request.getParameter("email");
         String fname = request.getParameter("fname");
         String lname = request.getParameter("lname");
         String password = request.getParameter("password");
-        String userRole = request.getParameter("roles");
-        
-        Role role;
-        if (userRole.equals("system admin")) {
-            role = new Role(1, "system admin");
-        } else {
-            role = new Role(2, "regular user");
-        }
+        String userRoleName = request.getParameter("roles");
 
         try {
             if (userService.isNotEmpty(email, fname, lname, password)) {
                 switch (action) {
                     case "add":
-                        userService.insertUser(email, fname, lname, password, role);
+                        userService.insertUser(email, fname, lname, password, roleService.getRoleID(userRoleName));
                         break;
                     case "Update":
-                        userService.updateUser(email, fname, lname, password, role);
+                        userService.updateUser(email, fname, lname, password, roleService.getRoleID(userRoleName));
                         break;
                 }
             } else {

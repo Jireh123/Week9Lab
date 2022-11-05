@@ -90,7 +90,7 @@
                     Password: <input type="password" name="password"> <br>
                     Role: <select name="roles">
                         <c:forEach var="role" items="${roles}">
-                            <option value="${role.roleName}" ${role.roleName == user.role.roleName ? "selected" : ""}>${role.roleName}</option>
+                            <option value="${role.roleName}" ${(role.roleId) == user.role.roleId ? "selected" : ""}>${role.roleName}</option>
                         </c:forEach>
                     </select> <br>
                     <div id="edit--buttons">
