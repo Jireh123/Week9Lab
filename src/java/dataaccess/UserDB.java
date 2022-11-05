@@ -46,7 +46,7 @@ public class UserDB {
             Role role = user.getRole();
             role.getUserList().add(user);
             trans.begin();
-            em.persist(em);
+            em.persist(user);
             em.merge(role);
             trans.commit();
         } catch (Exception ex) {
